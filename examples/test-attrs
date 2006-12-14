@@ -1,0 +1,9 @@
+# This is a sample attribute file for rad-client
+#
+# Copyright © 2006, Luis E. Muñoz
+#
+# $id$
+
+Service-Type=PPP
+Cisco.cisco-avpair=foo=bar
+NAS-IP-Address=127.0.0.1
