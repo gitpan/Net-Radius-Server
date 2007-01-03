@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use base qw/Class::Accessor/;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.3 $ =~ /\d+/g) };
+our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.4 $ =~ /\d+/g) };
 
 42;
 
@@ -141,6 +141,15 @@ modify this packet to craft a suitable response.
 
 =back
 
+=head2 Using Linux-PAM and LDAP
+
+The accompanying modules can use LDAP and Linux-PAM to authenticate
+users or otherwise, make more complex choices. An example used by the
+author, uses an LDAP attribute to decide if the username must be
+authenticated through RADIUS proxying or against an LDAP server.
+
+Other uses are possible, such as adding specific RADIUS attributes to
+the responses based on LDAP attributes.
 
 =head2 EXPORT
 
@@ -150,6 +159,10 @@ None by default.
 =head1 HISTORY
 
   $Log: Server.pm,v $
+  Revision 1.4  2007/01/02 23:27:11  lem
+  Added missing prerequisites. Also documented what can be done with
+  LDAP and Linux-PAM
+
   Revision 1.3  2006/12/14 15:52:25  lem
   Fix CVS tags
 

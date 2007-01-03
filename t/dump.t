@@ -1,7 +1,8 @@
-use Test::More tests => 40;
+use Test::More tests => 41;
 
 use IO::File;
 use Net::Radius::Packet;
+use Net::Radius::Dictionary;
 use Net::Radius::Server::Base qw/:set/;
 
 # Init the dictionary for our test run...
@@ -58,15 +59,17 @@ is($method->(), NRS_SET_CONTINUE, "Default set return value");
 
 # Build a request and test it is ok
 my $q = new Net::Radius::Packet;
+my $dic = new Net::Radius::Dictionary "dict.$$";
 isa_ok($q, 'Net::Radius::Packet');
-$q->set_dict("dict.$$");
+isa_ok($dic, 'Net::Radius::Dictionary');
+$q->set_dict($dic);
 $q->set_code("Access-Request");
 $q->set_attr("User-Name" => 'FOO@MY.DOMAIN');
 $q->set_attr("NAS-IP-Address" => "127.0.0.1");
 
 my $r = new Net::Radius::Packet;
 isa_ok($r, 'Net::Radius::Packet');
-$r->set_dict("dict.$$");
+$r->set_dict($dic);
 $r->set_code("Access-Accept");
 
 # Now test the invocation passing some parameters

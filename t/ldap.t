@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 use Test::More tests => 26;
 
 use IO::Prompt;

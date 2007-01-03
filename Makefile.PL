@@ -10,6 +10,10 @@ WriteMakefile
      {
 	 'Class::Accessor'		=> 0.27,
 	 'NetAddr::IP'			=> 4,
+	 # PAM and LDAP are required if you intend to use them in your
+	 # RADIUS processing
+	 'Authen::PAM'			=> 0,
+	 'Net::LDAP'			=> 0,
 	 # Net::Radius - We need dynamic packet types
 	 # and other recent niceties
 	 'Net::Radius::Packet'		=> 1.51,

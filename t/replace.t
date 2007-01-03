@@ -1,8 +1,9 @@
 use IO::File;
-use Test::More tests => 60;
+use Test::More tests => 61;
 
 use NetAddr::IP;
 use Net::Radius::Packet;
+use Net::Radius::Dictionary;
 use Net::Radius::Server::Base qw/:set/;
 
 # Init the dictionary for our test run...
@@ -60,9 +61,10 @@ sub _new_args
 {
     my $req = new Net::Radius::Packet;
     my $rep = new Net::Radius::Packet;
+    my $dic = new Net::Radius::Dictionary "dict.$$";
     
-    $req->set_dict("dict.$$");
-    $rep->set_dict("dict.$$");
+    $req->set_dict($dic);
+    $rep->set_dict($dic);
     $req->set_code("Access-Request");
     $rep->set_code("Access-Reject");
     $req->set_identifier('42');
@@ -77,11 +79,13 @@ sub _new_args
 # Build a request/reply pair and test it is ok
 my $req = new Net::Radius::Packet;
 my $rep = new Net::Radius::Packet;
+my $dic = new Net::Radius::Dictionary "dict.$$";
 isa_ok($req, 'Net::Radius::Packet');
 isa_ok($rep, 'Net::Radius::Packet');
+isa_ok($dic, 'Net::Radius::Dictionary');
 
-$req->set_dict("dict.$$");
-$rep->set_dict("dict.$$");
+$req->set_dict($dic);
+$rep->set_dict($dic);
 $req->set_code("Access-Request");
 $rep->set_code("Access-Reject");
 $req->set_identifier('42');

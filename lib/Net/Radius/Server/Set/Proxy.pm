@@ -1,7 +1,7 @@
 #! /usr/bin/perl
 #
 #
-# $Id: Proxy.pm,v 1.12 2006/12/14 16:33:17 lem Exp $
+# $Id: Proxy.pm,v 1.13 2007/01/03 00:29:58 lem Exp $
 
 package Net::Radius::Server::Set::Proxy;
 
@@ -9,7 +9,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.12 $ =~ /\d+/g) };
+our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.13 $ =~ /\d+/g) };
 
 use IO::Select;
 use IO::Socket::INET;
@@ -33,7 +33,9 @@ sub _proxy
     my $pass	= $req->password($r_data->{secret});
 
     # Construct a packet for our server, passing all the attributes
-    # from the original packet
+    # from the original packet - Note that the dict may be different
+    # XXX - It may be more efficient to take the chance and use
+    # ->{request} instead of re-decoding the packet
     my $p = new Net::Radius::Packet $dict, $r_data->{packet};
 
     # Send password protected with our shared secret
@@ -77,9 +79,9 @@ sub _proxy
     }
 
     # No reply - Simply drop this packet and wait
-    unless (defined $reply)
+    unless (defined $reply and length($reply) > 0)
     {
-	$self->log(3, "Server reply is undef");
+	$self->log(2, "Server reply is undef or empty");
 	return;
     }
 
@@ -260,6 +262,9 @@ None by default.
 =head1 HISTORY
 
   $Log: Proxy.pm,v $
+  Revision 1.13  2007/01/03 00:29:58  lem
+  Improve check for non-responses
+
   Revision 1.12  2006/12/14 16:33:17  lem
   Rules and methods will only report failures in log level 3 and
   above. Level 4 report success and failure, for deeper debugging

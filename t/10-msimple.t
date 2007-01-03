@@ -1,8 +1,9 @@
 use IO::File;
-use Test::More tests => 47;
+use Test::More tests => 48;
 
 use NetAddr::IP;
 use Net::Radius::Packet;
+use Net::Radius::Dictionary;
 use Net::Radius::Server::Base qw/:match/;
 
 # Init the dictionary for our test run...
@@ -58,8 +59,10 @@ is($method->(), NRS_MATCH_OK, "No conditions: Should match");
 
 # Build a request and test it is ok
 my $p = new Net::Radius::Packet;
+my $d = new Net::Radius::Dictionary "dict.$$";
 isa_ok($p, 'Net::Radius::Packet');
-$p->set_dict("dict.$$");
+isa_ok($d, 'Net::Radius::Dictionary');
+$p->set_dict($d);
 $p->set_code("Access-Request");
 $p->set_attr("User-Name" => 'FOO@MY.DOMAIN');
 $p->set_attr("NAS-IP-Address" => "127.0.0.1");

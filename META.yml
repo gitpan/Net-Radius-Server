@@ -1,0 +1,18 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Net-Radius-Server
+version:      1.004
+version_from: lib/Net/Radius/Server.pm
+installdirs:  site
+requires:
+    Authen::PAM:                   0
+    Class::Accessor:               0.27
+    IO::Prompt:                    0
+    Net::LDAP:                     0
+    Net::Radius::Dictionary:       1.51
+    Net::Radius::Packet:           1.51
+    Net::Server:                   0.94
+    NetAddr::IP:                   4
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.17
