@@ -2,13 +2,13 @@
 #
 # Sample rule configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This example combines simple and LDAP matches to verify users that
 # exist within your LDAP server and proxy only those users to an
 # existing RADIUS server
 #
-# $Id: rules.pl,v 1.2 2006/11/10 00:01:20 lem Exp $
+# $Id: rules.pl 74 2007-04-21 17:13:14Z lem $
 #
 
 use strict;

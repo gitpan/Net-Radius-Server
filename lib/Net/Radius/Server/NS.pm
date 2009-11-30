@@ -7,7 +7,7 @@ use Net::Radius::Packet;
 use base qw/Net::Server::MultiType Net::Radius::Server/;
 use Net::Radius::Server::Base qw/:all/;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.8 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 89 $ =~ /\d+/g)[0]/1000 };
 
 # Verify that the required configuration keys are present. Initialize
 # whatever we'll require for request processing, such as dictionaries,
@@ -52,14 +52,16 @@ sub configure
     warn "Dictionary script ", $s->{nrs_dictionary_script}->[0], 
     " produced output: $@\n" if $@;
     die "Dictionary script ", $s->{nrs_dictionary_script}->[0], 
-    " must return a coderef (returned $d_method)\n"
+    " must return a coderef (returned " 
+	. ($d_method||'false/undef') . ")\n"
 	unless ref($d_method) eq 'CODE';
 
     eval { $s_method = do ($s->{nrs_secret_script}->[0]) };
     warn "Secret script ", $s->{nrs_secret_script}->[0], 
     " produced output: $@\n" if $@;
     die "Secret script ", $s->{nrs_secret_script}->[0], 
-    " must return a coderef (returned $s_method)\n"
+    " must return a coderef (returned " 
+	. ($s_method||'false/undef') . ")\n"
 	unless ref($s_method) eq 'CODE';
 
     eval { $rules = do ($s->{nrs_rule_script}->[0]) };
@@ -115,22 +117,28 @@ sub process_request
 		      $data->{request}->attributes)
 	       . ') ');
 
+    $self->log(4, "Request: " . $data->{request}->str_dump);
 
     # Verify that the authenticator in the packet matches the packet
     # data. Discard the packet if this check fails
 
-    if ($data->{request}->code eq 'Accounting-Request')
+    if (grep { $data->{request}->code eq $_ } 
+	qw/Accounting-Request
+	Disconnect-Request Disconnect-ACK Disconnect-NAK 
+	CoA-Request CoA-ACK CoA-NAK/)
     {
 	if (auth_acct_verify($data->{packet}, $data->{secret}))
 	{
-	    $self->log(4, "Accounting-Request with good secret from "
-		       . $data->{peer_addr});
+	    $self->log(4, $data->{request}->code . 
+		       ' with good secret from ' .
+		       $data->{peer_addr});
 	}
 	else
 	{
 	    # Bad secret - Ignore request
-	    $self->log(2, "Accounting-Request with bad secret from "
-		       . $data->{peer_addr});
+	    $self->log(2, $data->{request}->code . 
+		       ' with bad secret from ' .
+		       $data->{peer_addr});
 	    return;
 	}
     }
@@ -183,9 +191,12 @@ sub process_request
 			  $data->{request}->attributes)
 		   . ') ');
 	$self->log(3, "Responding");
-	$self->log(4, "Response: " . $data->{response}->str_dump);
-	$self->{server}->{client}->send(auth_resp($data->{response}->pack, 
-						  $data->{secret}));
+	my $reply_packet = auth_resp($data->{response}->pack, 
+				     $data->{secret});
+	$self->{server}->{client}->send($reply_packet);
+	$self->log(4, "Response: " . 
+		   Net::Radius::Packet->new($data->{dict}, 
+					    $reply_packet)->str_dump);
     }
     else
     {
@@ -297,7 +308,7 @@ None by default.
 
 =head1 HISTORY
 
-  $Log: NS.pm,v $
+  $Log$
   Revision 1.8  2006/12/14 16:33:17  lem
   Rules and methods will only report failures in log level 3 and
   above. Level 4 report success and failure, for deeper debugging
@@ -318,11 +329,11 @@ Net::Radius::Server(3).
 
 =head1 AUTHOR
 
-Luis E. Muñoz, E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz, E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Luis E. Muñoz
+Copyright (C) 2006 by Luis E. MuÃ±oz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.8.6 itself.

@@ -1,8 +1,8 @@
 # This is a sample attribute file for rad-client
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
-# $id$
+# $Id: test-attrs 108 2009-10-17 02:48:38Z lem $
 
 Service-Type=PPP
 Cisco.cisco-avpair=foo=bar

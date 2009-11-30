@@ -9,7 +9,7 @@ use Net::Radius::Packet;
 use base qw/Net::Radius::Server::Match Net::Radius::Server::Set::Simple/;
 use Net::Radius::Server::Base qw/:all/;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.6 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 75 $ =~ /\d+/g)[0]/1000 };
 
 __PACKAGE__->mk_accessors(qw/service store_result/);
 
@@ -241,7 +241,7 @@ None by default.
 
 =head1 HISTORY
 
-  $Log: PAM.pm,v $
+  $Log$
   Revision 1.6  2006/12/14 16:33:17  lem
   Rules and methods will only report failures in log level 3 and
   above. Level 4 report success and failure, for deeper debugging
@@ -272,11 +272,11 @@ Authen::PAM(3).
 
 =head1 AUTHOR
 
-Luis E. Muñoz, E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz, E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Luis E. Muñoz
+Copyright (C) 2006 by Luis E. MuÃ±oz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.8.6 itself.

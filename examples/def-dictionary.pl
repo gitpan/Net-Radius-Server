@@ -2,12 +2,12 @@
 #
 # Sample dictionary configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This file defines a dictionary provider method that returns a simple
 # dictionary.
 #
-# $Id: def-dictionary.pl,v 1.2 2006/11/09 00:31:47 lem Exp $
+# $Id: def-dictionary.pl 74 2007-04-21 17:13:14Z lem $
 
 use strict;
 use warnings;

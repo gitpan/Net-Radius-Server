@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.3 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 88 $ =~ /\d+/g)[0]/1000};
 
 use IO::File;
 use IO::Prompt;
@@ -41,6 +41,10 @@ pod2usage(verbose => 2, exitval => 0)
 $opt{$_} ||= 3 for qw/attempts timeout/;
 $opt{port} ||= 1812;
 $opt{code} ||= 'Access-Request';
+
+# These Packet Codes require specific encoding methods...
+
+our @pass_codes = qw/Access-Request/;
 
 # XXX - Not secure! Use is ok for testing only. A proper authenticator
 # needs to be much more stronger. It is ok for what we intend to use it
@@ -131,18 +135,21 @@ for my $a (@{$opt{prompt}})
     $p->set_password($v, $opt{secret}, $a||$pattr);
 }
 
-unless (grep { $_ eq $pattr || $_ eq ''} @{$opt{prompt}})
+if (grep { $p->code eq $_ } @pass_codes)
 {
-    if (defined $pattr and grep {$_ eq $pattr} $p->attributes)
+    unless (grep { $_ eq $pattr || $_ eq ''} @{$opt{prompt}})
     {
-	print basename($0), 
-	": Encoding attribute 2 ($pattr)\n" unless $opt{quiet};
-	$p->set_password($p->attr($pattr), $opt{secret}, $pattr);
-    }
-    else
-    {
-	warn basename($0), 
-	": Dictionary does not define attribute 2 or not specified\n";
+	if (defined $pattr and grep {$_ eq $pattr} $p->attributes)
+	{
+	    print basename($0), 
+	    ": Encoding attribute 2 ($pattr)\n" unless $opt{quiet};
+	    $p->set_password($p->attr($pattr), $opt{secret}, $pattr);
+	}
+	else
+	{
+	    warn basename($0), 
+	    ": Dictionary does not define attribute 2 or not specified\n";
+	}
     }
 }
 
@@ -155,9 +162,12 @@ if ($opt{'dump-request'})
 }
 
 # Send the request we just crafted
-my $data = $p->code eq 'Access-Request' 
-    ? $p->pack 
-    : auth_resp($p->pack, $opt{secret});
+my $data = $p->pack;
+
+unless (grep { $p->code eq $_ } @pass_codes)
+{
+    $data = auth_resp($data, $opt{secret}, 1);
+}
 
 # We'll need a socket to send our packet, so let's take care of it
 my $sock = IO::Socket::INET->new
@@ -308,7 +318,7 @@ specified, causing the dictionaries to be loaded in order.
 
 =item B<--code code>
 
-The RADIUS packet code. Defaults to 'Access-Accept'.
+The RADIUS packet code. Defaults to 'Access-Request'.
 
 =item B<--authenticator auth>
 
@@ -357,16 +367,17 @@ file specified with the B<--attributes> option, as follows:
 Where B<vendor> and B<attribute> are the labels specified in the
 dictionary.
 
-If the packet code is 'Access-Accept', the special attributes
-'Password' and 'User-Password' (with no vendor), will be encoded with
-the shared secret before sending the packet, as expected.
+If the packet code is 'Access-Request' (or another packet code
+requiring a password attribute), the special attributes 'Password' and
+'User-Password' (with no vendor), will be encoded with the shared
+secret before sending the packet, as expected.
 
 Any received packets will be dumped to C<STDOUT> using
 C<Net::Radius::Packet-E<gt>dump>.
 
 =head1 HISTORY
 
-    $Log: rad-client,v $
+    $Log$
     Revision 1.3  2006/11/15 00:08:46  lem
     rad-client can now prompt for attribute values...
 
@@ -389,7 +400,7 @@ same terms as Perl version 5.8.6 itself.
 
 =head1 AUTHOR
 
-Luis E. Muñoz E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 SEE ALSO
 

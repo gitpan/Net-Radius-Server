@@ -2,12 +2,12 @@
 #
 # Sample shared secret configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This file defines a 'secret' provider method that returns a shared
 # secret for each NAS
 #
-# $Id: def-manysecrets.pl,v 1.1 2006/11/08 22:14:08 lem Exp $
+# $Id: def-manysecrets.pl 74 2007-04-21 17:13:14Z lem $
 
 use strict;
 use warnings;

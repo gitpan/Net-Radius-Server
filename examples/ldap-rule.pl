@@ -2,12 +2,12 @@
 #
 # Sample rule configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This file defines a single rule that uses an LDAP bind()
 # to authenticate users against an LDAP directory.
 #
-# $Id: ldap-rule.pl,v 1.1 2006/11/15 02:04:52 lem Exp $
+# $Id: ldap-rule.pl 74 2007-04-21 17:13:14Z lem $
 #
 
 use strict;

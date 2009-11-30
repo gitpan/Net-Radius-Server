@@ -21,6 +21,19 @@ EOF
 
 END { unlink 'dict.' . $$; }
 
+unless ($ENV{NRS_INTERACTIVE})
+{
+    diag(<<EOF);
+
+
+This test includes an interactive component. To enable it,
+set the environment variable \$NRS_INTERACTIVE to some true
+value.
+
+
+EOF
+}
+
 use_ok('Net::Radius::Server::Set::Proxy');
 
 my $proxy = Net::Radius::Server::Set::Proxy->new({});
@@ -60,7 +73,8 @@ diag(qq{
 The following tests require access to a live RADIUS server.
 });
 
-if (prompt(q{Do you want to run this test? [y/n]: }, -yes))
+if ($ENV{NRS_INTERACTIVE} and 
+    prompt(q{Do you want to run this test? [y/n]: }, -yes))
 {
     diag("\nPlease tell me the IP address of your real RADIUS server");
     my $server = prompt("IP address of real RADIUS server: ");
@@ -159,5 +173,5 @@ Attempting a request that should succeed
 }
 else
 {
-  SKIP: { skip 'No live RADIUS server supplied', 7 };
+  SKIP: { skip 'No interactive tests or no live RADIUS server supplied', 7 };
 }

@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use base qw/Class::Accessor/;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.4 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 107 $ =~ /\d+/g)[0] / 1000 };
 
 42;
 
@@ -44,6 +44,12 @@ This class uses C<Net::Server(3)> to construct a complete RADIUS server.
 
 A general base class that contains exported constants and methods for
 the framework.
+
+=item C<Net::Radius::Server::DBStore>
+
+Provide access to an underlying Berkeley DB Database for storing
+attributes received in the RADIUS requests or in any tuple provided at
+transaction processing time.
 
 =item C<Net::Radius::Server::Match>
 
@@ -158,7 +164,7 @@ None by default.
 
 =head1 HISTORY
 
-  $Log: Server.pm,v $
+  $Log$
   Revision 1.4  2007/01/02 23:27:11  lem
   Added missing prerequisites. Also documented what can be done with
   LDAP and Linux-PAM
@@ -173,11 +179,11 @@ Perl(1), Net::Radius::Packet(3), Net::Radius::Server::NS(3), Net::Server(3).
 
 =head1 AUTHOR
 
-Luis E. Muñoz, E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz, E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Luis E. Muñoz
+Copyright (C) 2006 by Luis E. MuÃ±oz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.8.6 itself.

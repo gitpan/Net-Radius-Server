@@ -1,5 +1,5 @@
 
-# $Id: 00-load.t,v 1.4 2006/11/14 20:59:44 lem Exp $
+# $Id: 00-load.t 91 2009-09-17 21:02:08Z lem $
 
 use Test::More;
 
@@ -12,6 +12,7 @@ Net::Radius::Server::Dump
 Net::Radius::Server::Set
 Net::Radius::Server::PAM
 Net::Radius::Server::Match
+Net::Radius::Server::DBStore
 Net::Radius::Server::Match::LDAP
 Net::Radius::Server::Match::Simple
 Net::Radius::Server::Set::Simple

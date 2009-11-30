@@ -1,5 +1,5 @@
 
-# $Id: 20-log.t,v 1.1 2006/11/09 18:38:10 lem Exp $
+# $Id: 20-log.t 25 2006-11-09 18:38:10Z lem $
 
 use Test::More;
 

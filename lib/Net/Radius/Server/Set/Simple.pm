@@ -1,7 +1,7 @@
 #! /usr/bin/perl
 #
 #
-# $Id: Simple.pm,v 1.4 2006/12/14 16:33:17 lem Exp $
+# $Id: Simple.pm 75 2009-08-12 22:08:28Z lem $
 
 package Net::Radius::Server::Set::Simple;
 
@@ -9,7 +9,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.4 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 75 $ =~ /\d+/g)[0]/1000 };
 
 use Net::Radius::Server::Base qw/:set/;
 use base qw/Net::Radius::Server::Set/;
@@ -147,7 +147,7 @@ None by default.
 
 =head1 HISTORY
 
-  $Log: Simple.pm,v $
+  $Log$
   Revision 1.4  2006/12/14 16:33:17  lem
   Rules and methods will only report failures in log level 3 and
   above. Level 4 report success and failure, for deeper debugging
@@ -163,11 +163,11 @@ Net::Radius::Packet(3).
 
 =head1 AUTHOR
 
-Luis E. Muñoz, E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz, E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Luis E. Muñoz
+Copyright (C) 2006 by Luis E. MuÃ±oz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.8.6 itself.

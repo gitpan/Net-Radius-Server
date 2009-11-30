@@ -23,6 +23,19 @@ EOF
 
 END { unlink 'dict.' . $$; }
 
+unless ($ENV{NRS_INTERACTIVE})
+{
+    diag(<<EOF);
+
+
+This test includes an interactive component. To enable it,
+set the environment variable \$NRS_INTERACTIVE to some true
+value.
+
+
+EOF
+}
+
 use_ok('Net::Radius::Server::PAM');
 diag("Using service 'login' for the remaining tests");
 
@@ -73,7 +86,7 @@ is($m_pam->($hash), NRS_MATCH_FAIL, "Incomplete packet causes FAIL");
 
 sleep 1;
 diag("\nFurther testing requires credentials to login to this box");
-if (prompt(q{Run this test? [y/n]: }, -yes))
+if ($ENV{NRS_INTERACTIVE} and prompt(q{Run this test? [y/n]: }, -yes))
 {
     sleep 1;
     diag("\nWe need a username to test");
@@ -171,5 +184,6 @@ if (prompt(q{Run this test? [y/n]: }, -yes))
 }
 else
 {
-  SKIP: { skip "No credentials to test authentication", 22 };
+  SKIP: { skip "Interactive tests skipped or no credentials to test auth", 
+	  22 };
 }

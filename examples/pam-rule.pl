@@ -2,12 +2,12 @@
 #
 # Sample rule configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This file defines a single rule that uses PAM to authenticate
 # remote users
 #
-# $Id: pam-rule.pl,v 1.2 2006/11/15 05:54:04 lem Exp $
+# $Id: pam-rule.pl 74 2007-04-21 17:13:14Z lem $
 #
 
 use strict;

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.1.1.1 $ =~ /\d+/g) };
+our $VERSION = do { sprintf " %0.3f", (q$Revision: 78 $ =~ /\d+/g) };
 
 use Net::Radius::Server::NS;
 Net::Radius::Server::NS->run(conf_file => 'nrsd.cfg');
@@ -32,9 +32,9 @@ configuration parameters. Typically, this script can be invoked as in:
 
 =head1 HISTORY
 
-  $Log: nrsd,v $
-  Revision 1.1.1.1  2006/11/07 22:51:07  lem
-  Initial version
+  $Log$
+  Revision 1.1  2006/11/07 22:51:07  lem
+  Initial revision
 
 
 =head1 LICENSE AND WARRANTY
@@ -47,7 +47,7 @@ same terms as Perl version 5.8.6 itself.
 
 =head1 AUTHOR
 
-Luis E. Muñoz E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 SEE ALSO
 

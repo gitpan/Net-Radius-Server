@@ -2,12 +2,12 @@
 #
 # Sample shared secret configuration for Net::Radius::Server
 #
-# Copyright © 2006, Luis E. Muñoz
+# Copyright Â© 2006, Luis E. MuÃ±oz
 #
 # This file defines a 'secret' provider method that returns a simple shared
 # secret.
 #
-# $Id: def-secret.pl,v 1.1.1.1 2006/11/07 22:51:07 lem Exp $
+# $Id: def-secret.pl 74 2007-04-21 17:13:14Z lem $
 
 use strict;
 use warnings;

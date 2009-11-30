@@ -1,7 +1,7 @@
 #! /usr/bin/perl
 #
 #
-# $Id: Dump.pm,v 1.3 2006/12/14 15:52:25 lem Exp $
+# $Id: Dump.pm 75 2009-08-12 22:08:28Z lem $
 
 package Net::Radius::Server::Dump;
 
@@ -12,7 +12,7 @@ use IO::File;
 use File::Spec;
 use Time::HiRes qw/gettimeofday/;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.3 $ =~ /\d+/g) };
+our $VERSION = do { sprintf "%0.3f", 1+(q$Revision: 75 $ =~ /\d+/g)[0]/1000 };
 
 use Net::Radius::Server::Base qw/:set/;
 use base qw/Net::Radius::Server::Set/;
@@ -92,7 +92,7 @@ None by default.
 
 =head1 HISTORY
 
-  $Log: Dump.pm,v $
+  $Log$
   Revision 1.3  2006/12/14 15:52:25  lem
   Fix CVS tags
 
@@ -103,11 +103,11 @@ Perl(1), Net::Radius::Server(3), Net::Radius::Server::Set(3).
 
 =head1 AUTHOR
 
-Luis E. Muñoz, E<lt>luismunoz@cpan.orgE<gt>
+Luis E. MuÃ±oz, E<lt>luismunoz@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Luis E. Muñoz
+Copyright (C) 2006 by Luis E. MuÃ±oz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl 5.8.6 itself.

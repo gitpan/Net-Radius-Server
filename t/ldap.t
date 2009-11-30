@@ -5,6 +5,19 @@ use Test::More tests => 26;
 use IO::Prompt;
 use Net::Radius::Server::Base qw/:match/;
 
+unless ($ENV{NRS_INTERACTIVE})
+{
+    diag(<<EOF);
+
+
+This test includes an interactive component. To enable it,
+set the environment variable \$NRS_INTERACTIVE to some true
+value.
+
+
+EOF
+}
+
 use_ok('Net::Radius::Server::Match::LDAP');
 
 # Create an empty/trivial matcher
@@ -44,7 +57,7 @@ like($m->description, qr/:\d+\)$/, "Description contains the line");
 # XXX - sleep seems to be the only semi-reliable way to sync the prompts
 sleep 1;
 diag("\nThe following tests require access to a live LDAP server.");
-if (prompt(q{Run this test? [y/n]: }, -yes))
+if ($ENV{NRS_INTERACTIVE} and prompt(q{Run this test? [y/n]: }, -yes))
 {
     sleep 1;
     diag("\nWe need a live LDAP server to connect to");
@@ -80,7 +93,8 @@ if (prompt(q{Run this test? [y/n]: }, -yes))
 }
 else
 {
-  SKIP: { skip 'No live LDAP server supplied', 2 };
+  SKIP: { skip 'Interactive tests skipped or no live LDAP server supplied', 
+	  2 };
 }
 
 

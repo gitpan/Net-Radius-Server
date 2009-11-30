@@ -1,5 +1,6 @@
 ^Build$
 ^_build/
+^debian/
 ^blib/
 ^blibdirs
 Makefile$
@@ -18,10 +19,12 @@ CVS/.*
 ~$
 ^#
 \.shar$
+\.svn
 \.tar$
 \.tgz$
 \.tar\.gz$
 \.zip$
 dict\.\d+$
 _uu$
-
+build-stamp
+install-stamp

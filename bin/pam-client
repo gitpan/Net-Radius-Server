@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-our $VERSION = do { sprintf " %d.%03d", (q$Revision: 1.1 $ =~ /\d+/g) };
+our $VERSION = do { sprintf " %d.%03d", (q$Revision: 77 $ =~ /\d+/g) };
 
 use IO::Prompt;
 use Pod::Usage;
@@ -148,9 +148,8 @@ relevant diagnostics.
 
 =head1 HISTORY
 
-    $Log: pam-client,v $
+    $Log$
     Revision 1.1  2006/11/13 17:45:45  lem
-
     Add initial version of the pam-client utility
 
 
